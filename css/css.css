@@ -33,7 +33,7 @@ body {
     /* fisken er foran baggrunden (andet lag) */
     z-index: 2;
     /* start svømme animation */
-    animation: svoem 10s linear infinite;
+    animation: svoem 12s linear infinite;
 }
 
 .fisk-retning {
@@ -100,10 +100,57 @@ body {
 
 /* Får fisken til at svømme */
 @keyframes svoem {
-    /* svarter ved venstre side */
+    /* starter ved venstre side -110 gør fiskens egen krop er helt ude for skærmen */
     0% {
-        left: 0;
+        transform: translateX(-110%);
     }
 
-    /* svømmer hen mod højre side */
+    /* svømmer helt ud for højre side, 100vw er hele skærmen så de ekstra 110% gør fisken er uden for skærmen */
+    48% {
+        transform: translateX(calc(100vw + 110%));
+    }
+
+    /* fisken bliver kort uden for skærmen mens den vender */
+    50% {
+        transform: translateX(calc(100vw + 110%));
+    }
+
+    /* fisken er tilbage uden for venstre side */
+    98% {
+        transform: translateX(-110%);
+    }
+
+    /* den bliver kort uden for venstre side inden animationen starter forfra */
+    100% {
+        transform: translateX(-110%);
+    }
+}
+
+/* fisken skal vendes uden for skærmen */
+.fisk-retning {
+    width: 100%;
+    height: 100%;
+
+    /* den skal have samme varighed som svømme animationen */
+svoem-animationen.
+    animation: vend-fisk 12s linear infinite;
+}
+
+@keyframes vend-fisk {
+    /* fisken vender først mod højre på turen ud i højre side */
+    0%,
+    48% {
+        transform: scaleX(1);
+    }
+
+    /* ved 50% er fisken uden for høre side. Her spejles den og vender mod venstre */
+    50%,
+    98 {
+        transform: scaleX(-1);
+    }
+
+    /* Ved 100% er fisken uden for venstre side, så den skal vendes mod højre igen */
+    100% {
+        transform: scaleX(1);
+    }
 }
