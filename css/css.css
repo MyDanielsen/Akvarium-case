@@ -11,3 +11,70 @@ body {
     background-position: center;
     background-attachment: fixed;
 }
+
+.fisk-bane {
+    /* gør det muligt at flytte fisken frit */
+    position: absolute;
+    /* det starter 40% nede på skærmen */
+    top: 40%;
+    /* fisken starter ved venstre kant */
+    left: 0;
+    width: 180px;
+    /* samme format som frames */
+    aspect-ratio: 900/600;
+    /* fisken er foran baggrunden (andet lag) */
+    z-index: 2;
+    /* start svømme animation */
+    animation: svoem 10s linear infinite;
+}
+
+.fisk-retning {
+    /* så den fylder hele fisken beholder */
+    width: 100%;
+    height: 100%;
+
+    /* vender fisken på det rigtige tidspunkt */
+    animation: vend-fisk 10s linear infinite;
+}
+
+.fisk-knap {
+    /* fjerner knappen afstand */
+    border: 0;
+    /* fjerner knappen kant */
+    padding: 0;
+    /* fjerner knappen baggrund */
+    background: transparent;
+
+    width: 100%;
+    height: 100%;
+
+    cursor: pointer;
+}
+
+/* placerer fiskene oven på hinanden */
+.pindsvine-billeder {
+    /* gør vi kan sætter billederne oven på hinanden */
+    position: relative;
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    /* skalering sker på midten */
+    transform-origin: center;
+}
+
+.fisktilstand {
+    /* begge billeder bliver placeret øverset venstre i samme boks */
+    position: absolute;
+    inset: 0;
+
+    /* begge svger fylder det samme */
+    width: 100%;
+    height: 100%;
+
+    /* hele svg framen bliver bevaret uden at ændre sig */
+    object-fit: contain;
+    /* fjerer afstaden under billederne */
+    display: block;
+}
