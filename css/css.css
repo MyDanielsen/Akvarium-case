@@ -1,5 +1,4 @@
-html,
-body {
+html {
     margin: 0;
     min-height: 100%;
 }
@@ -10,6 +9,15 @@ body {
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
+}
+
+.akvarium {
+    /* skal fylde hele skærmen */
+    width: 100%;
+    min-height: 100vh;
+
+    /* fisken svømmer ud og bliver usynlige */
+    overflow: hidden;
 }
 
 .fisk-bane {
@@ -77,4 +85,25 @@ body {
     object-fit: contain;
     /* fjerer afstaden under billederne */
     display: block;
+}
+
+/* Hvilken fisk er synlig */
+/* tyndfisk er synlig */
+    .fisktynd {
+        opacity: 1;
+    }
+
+/* tykfisk er ikke synlig */
+    .fisktyk {
+        opacity: 0;
+    }
+
+/* Får fisken til at svømme */
+@keyframes svoem {
+    /* svarter ved venstre side */
+    0% {
+        left: 0;
+    }
+
+    /* svømmer hen mod højre side */
 }
