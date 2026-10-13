@@ -1,4 +1,5 @@
-html {
+html,
+body {
     margin: 0;
     min-height: 100%;
 }
@@ -9,12 +10,16 @@ body {
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
+    background-repeat: no-repeat;
 }
 
 .akvarium {
+    /* fisken bliver placeret i forhold til akvariet */
+    position: relative;
+
     /* skal fylde hele skærmen */
     width: 100%;
-    min-height: 100vh;
+    height: 100vh;
 
     /* fisken svømmer ud og bliver usynlige */
     overflow: hidden;
@@ -23,11 +28,15 @@ body {
 .fisk-bane {
     /* gør det muligt at flytte fisken frit */
     position: absolute;
-    /* det starter 40% nede på skærmen */
-    top: 40%;
+    /* det starter 50% nede på skærmen fordi den skal være i midten */
+    top: 50%;
+    /* flytter fisken op så 50 er i midten af fisken */
+    translate: 0 -50%;
     /* fisken starter ved venstre kant */
     left: 0;
-    width: 180px;
+    /* fisken får 20% af skærmens højde som er 20% */
+    width: 20vw;
+    height: auto;
     /* samme format som frames */
     aspect-ratio: 900/600;
     /* fisken er foran baggrunden (andet lag) */
@@ -42,7 +51,7 @@ body {
     height: 100%;
 
     /* vender fisken på det rigtige tidspunkt */
-    animation: vend-fisk 10s linear infinite;
+    animation: vend-fisk 12s linear infinite;
 }
 
 .fisk-knap {
@@ -57,6 +66,9 @@ body {
     height: 100%;
 
     cursor: pointer;
+
+    /* her gør vi så den store fisk ikke bliver beskåret af knappens størrelse */
+    overflow: visible;
 }
 
 /* placerer fiskene oven på hinanden */
@@ -72,7 +84,7 @@ body {
     transform-origin: center;
 }
 
-.fisktilstand {
+.fisketilstand {
     /* begge billeder bliver placeret øverset venstre i samme boks */
     position: absolute;
     inset: 0;
@@ -97,6 +109,23 @@ body {
     .fisktyk {
         opacity: 0;
     }
+
+/* klassen "er-fanget" bliver tilføjet i js når brugeren klikker på fisken */
+/* her forhindre vi flere klik når animaionen "er fanget" kører */
+.fisk-bane.er-fanget {
+    pointer-events: none;
+}
+
+/* Her stopper vi fiskens dejning og gør den vender rigtigt */
+.fisk-bane.er-fanget .fisk-retning {
+    animation: none;
+    transform: scaleX(1);
+}
+
+/* gør at begge frames til fiskene bliver større */
+.fisk-bane.er-fanget .pindsvine-billeder {
+    animation: kom-her 1.6s ease-in-out forwards;
+}
 
 /* Får fisken til at svømme */
 @keyframes svoem {
@@ -126,16 +155,6 @@ body {
     }
 }
 
-/* fisken skal vendes uden for skærmen */
-.fisk-retning {
-    width: 100%;
-    height: 100%;
-
-    /* den skal have samme varighed som svømme animationen */
-svoem-animationen.
-    animation: vend-fisk 12s linear infinite;
-}
-
 @keyframes vend-fisk {
     /* fisken vender først mod højre på turen ud i højre side */
     0%,
@@ -145,12 +164,24 @@ svoem-animationen.
 
     /* ved 50% er fisken uden for høre side. Her spejles den og vender mod venstre */
     50%,
-    98 {
+    98% {
         transform: scaleX(-1);
     }
 
     /* Ved 100% er fisken uden for venstre side, så den skal vendes mod højre igen */
     100% {
         transform: scaleX(1);
+    }
+}
+
+/* gør dem større så det ligner de kommer tættere på skærmen */
+@keyframes kom-her {
+    /* her starter fiskene i normal størrelse */
+    0% {
+        transform: scale(1);
+    }
+    /* her bliver de tre gange større */
+    100% {
+        transform: scale(3);
     }
 }

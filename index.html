@@ -23,7 +23,7 @@
                  >
 
                  <!-- her samler vi de to billeder af pindsvinefisken så de kan blive hold oven på hinanden -->
-                  <div class="pindsvine-billeder">
+                  <span class="pindsvine-billeder">
                     <img class="fisketilstand fisktynd" 
                     src="svg/tyndfisk.svg" 
                     alt="tyndpindsvinefisk">
@@ -33,13 +33,18 @@
                     src="svg/tykfisk.svg" 
                     alt="tykpindsvinefisk">
 
-                  </div>
-
+                  </span>
                 </button>
-
              </div>
-
         </div>
+
+        <!-- lydklippet afspilles når ma trykker på fisken -->
+         <!-- preload auto = beder browseren om at indlæse lydfilen på forhånd, så den kan starte hurtigt ved klikket -->
+         <audio 
+         id="fiskelyd"
+         src="lyd-filer/randomlyd.mp3"
+         preload="auto"
+         ></audio>
     </main>
 
     <!-- forbinder html med js -->
