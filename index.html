@@ -9,8 +9,40 @@
 </head>
 
 <body>
-    <main>
+    <!-- området hvor fiskene skal svømme -->
+    <main class="akvarium">
+        <!-- hvor fiskene svømmer frem og tilbage -->
+        <div class="fisk-bane" id="fisk-bane">
+            <!-- vender fisken så den kan skifte retning -->
+             <div class="fisk-retning">
+                <!-- her gør vi fiskene klikbare -->
+                 <button
+                 class="fisk"
+                 id="fisk"
+                 type="button"
+                 >
 
+                 <!-- her samler vi de to billeder af pindsvinefisken så de kan blive hold oven på hinanden -->
+                  <div class="pindsvine-billeder">
+                    <img class="fisketilstand fisktynd" 
+                    src="svg/tyndfisk.svg" 
+                    alt="tyndpindsvinefisk">
+
+                    <img 
+                    class="fisketilstand fisktyk"
+                    src="svg/tykfisk.svg" 
+                    alt="tykpindsvinefisk">
+
+                  </div>
+
+                </button>
+
+             </div>
+
+        </div>
     </main>
+
+    <!-- forbinder html med js -->
+     <script src="JavaScript/js.js"></script>
 </body>
 </html>
