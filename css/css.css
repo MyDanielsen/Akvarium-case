@@ -127,6 +127,40 @@ body {
     animation: kom-her 1.6s ease-in-out forwards;
 }
 
+ /* når fisken er "fanget" skal den tynde fisk forsvinde */
+    .fisk-bane.er-fanget .fisktynd {
+        animation: skjul-tynd-fisk 1.6s ease-in-out forwards;
+    }
+
+/* den tykke fisk kommer frem efter den tynde */
+.fisk-bane.er-fanget .fisktyk {
+    animation: vis-tyk-fisk 1.6s ease-in-out forwards;
+}
+
+/* den tyndefisk skal være synlig i starten og så usynlig */
+@keyframes skjul-tynd-fisk {
+    0%,
+    65% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+/* den tykkefisk skal være usynlig i starten og så synlig */
+@keyframes vis-tyk-fisk {
+    0%,
+    65% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
 /* Får fisken til at svømme */
 @keyframes svoem {
     /* starter ved venstre side -110 gør fiskens egen krop er helt ude for skærmen */
@@ -185,3 +219,7 @@ body {
         transform: scale(3);
     }
 }
+
+/* få fisken til at gå tilbage til at svømme frem og tilbage */
+
+
