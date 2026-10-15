@@ -1,3 +1,9 @@
+const akvarium =
+document.querySelector(".akvarium");
+
+const fiskRetning =
+document.querySelector(".fisk-retning");
+
 // finder fisksknappen
 const fiskKnap =
 document.querySelector("#fisk-knap");
@@ -18,7 +24,9 @@ let erFanget = false
 
 // gør så lyden spilelr når man trykker på fisken
 fiskKnap.addEventListener("click",
-    function () {
+    function (event) {
+        event.stopPropagation();
+
         // hvis fisken er fanget skal alt ikke køre igen ved tryk
         if (erFanget) {
             return;
@@ -82,3 +90,33 @@ fiskKnap.addEventListener("click",
         "translate(-50%, -50%)";
 
     });
+
+    akvarium.addEventListener("click",
+        function () {
+            if (!erFanget) {
+                return;
+            }
+
+            // fisken er ikke længere fanget
+            erFanget = false;
+
+            // skifter tilbage fra tyk til tynd fisk
+            fiskBane.classList.remove("er-fanget");
+
+            // fjerner placeringen i midten
+            fiskBane.style.position = "";
+            fiskBane.style.left = "";
+            fiskBane.style.top = "";
+            fiskBane.style.width = "";
+            fiskBane.style.height = "";
+            fiskBane.style.translate = "";
+            fiskBane.style.transform = "";
+            fiskBane.style.transition = "";
+
+            // starter de nye animationer fra midten igen
+            fiskBane.style.animation =
+            "svoem-fra-midten 12s linear infinite";
+
+            fiskRetning.style.animation =
+            "vend-fisk-fra-midten 12s linear infinite";
+        });

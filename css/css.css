@@ -221,5 +221,45 @@ body {
 }
 
 /* få fisken til at gå tilbage til at svømme frem og tilbage */
+@keyframes svoem-fra-midten {
+    0% {
+        transform: translateX(calc(50vw - 50%));
+    }
 
+    32% {
+        transform: translateX(calc(100vw + 110%));
+    }
 
+    34% {
+        transform: translateX(calc(100vw + 110%));
+    }
+
+    66% {
+        transform: translateX(-110%);
+    }
+
+    68% {
+        transform: translateX(-110%);
+    }
+
+    100% {
+        transform: translateX(calc(50vw - 50%));
+    }
+}
+
+@keyframes vend-fisk-fra-midten {
+    0%,
+    32% {
+        transform: scaleX(1);
+    }
+
+    34%,
+    66% {
+        transform: scaleX(-1);
+    }
+
+    68%,
+    100% {
+        transform: scaleX(1);
+    }
+}
