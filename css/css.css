@@ -1,3 +1,22 @@
+/*
+    INDHOLDSFORTEGNELSE
+    1. Side og akvarium
+    2. Stor pindsvinefisk
+    3. Jomfrufisk
+    4. Fælles glasbobler
+    5. Små, fritsvømmende fisk
+    6. Paletkirurg
+
+    z-index-lag:
+    0 = baggrund
+    1 = små fisk
+    2-4 = de tre store fisk
+    90 = mørk fokus-overlay
+    100 = valgt fisk
+    101 = taleboble
+*/
+
+/* ========== 1. SIDE OG AKVARIUM ========== */
 html,
 body {
     margin: 0;
@@ -30,7 +49,12 @@ body {
     z-index: 100;
 }
 
+/* ========== 2. STOR PINDSVINEFISK ========== */
 .fisk-bane {
+    /* Ret kun denne værdi, når pindsvinefiskens hastighed skal ændres. */
+    --pindsvine-svoemmetid: 16s;
+    --pindsvine-skala: 3;
+
     /* gør det muligt at flytte fisken frit */
     position: absolute;
     /* det starter 50% nede på skærmen fordi den skal være i midten */
@@ -47,8 +71,7 @@ body {
     /* fisken er foran baggrunden (andet lag) */
     z-index: 2;
     /* start svømme animation */
-    animation: svoem 12s linear infinite;
-    --pindsvine-skala: 3;
+    animation: svoem var(--pindsvine-svoemmetid) linear infinite;
 }
 
 .fisk-retning {
@@ -57,7 +80,7 @@ body {
     height: 100%;
 
     /* vender fisken på det rigtige tidspunkt */
-    animation: vend-fisk 12s linear infinite;
+    animation: vend-fisk var(--pindsvine-svoemmetid) linear infinite;
 }
 
 .fisk-knap {
@@ -270,7 +293,7 @@ body {
     }
 }
 
-/* Jomfrufisk */
+/* ========== 3. JOMFRUFISK ========== */
 .jomfrufisk {
     position: absolute;
     z-index: 3;
@@ -405,7 +428,8 @@ body {
     }
 }
 
-/* Fælles glasboble til alle fisk */
+/* ========== 4. FÆLLES GLASBOBLER ========== */
+/* Klassen bruges på alle bobler, så farve, kant, glans og typografi er ens. */
 .fisk-info-boble {
     box-sizing: border-box;
     min-height: 19rem;
@@ -502,6 +526,7 @@ body {
     transition: opacity 0.25s ease 0.8s, transform 0.3s ease 0.8s;
 }
 
+/* Boblen bliver først synlig, når JavaScript giver fiskebanen klassen er-fanget. */
 .fisk-bane.er-fanget + .pindsvine-boble {
     opacity: 1;
     transform: translateY(-50%) scale(1);
@@ -539,13 +564,13 @@ body {
     }
 }
 
-/* Fælles system til de fritsvømmende fisk */
+/* ========== 5. SMÅ, FRITSVØMMENDE FISK ========== */
 .samlefisk {
     position: absolute;
     z-index: 1;
     top: 0;
     left: 0;
-    width: var(--bredde, 120px);
+    width: var(--bredde, 230px);
     cursor: pointer;
     transition:
         left var(--tid, 4s) ease-in-out,
@@ -570,8 +595,18 @@ body {
     transition: opacity 0.6s;
 }
 
-.akvarium.samlefisk-pause::after {
+/* Begge klasser kan aktivere den mørke baggrund. fisk-fokus bruges af alle fisk. */
+.akvarium.samlefisk-pause::after,
+.akvarium.fisk-fokus::after {
     opacity: 1;
+}
+
+/* Alle fisk undtagen den valgte fryses, mens informationsboblen er åben. */
+.akvarium.fisk-fokus .fisk-bane:not(.er-fanget),
+.akvarium.fisk-fokus .fisk-bane:not(.er-fanget) .fisk-retning,
+.akvarium.fisk-fokus .jomfrufisk:not(.er-stoppet),
+.akvarium.fisk-fokus .paletkirurg-fisk:not(.fisk-forrest) {
+    animation-play-state: paused;
 }
 
 .samlefisk-taleboble {
@@ -678,7 +713,7 @@ body {
     }
 }
 
-/* Paletkirurg */
+/* ========== 6. PALETKIRURG ========== */
 .paletkirurg-fisk {
     position: absolute;
     z-index: 4;

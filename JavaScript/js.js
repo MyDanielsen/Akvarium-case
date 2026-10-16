@@ -1,3 +1,13 @@
+/*
+    JAVASCRIPT-OVERBLIK
+    1. Stor pindsvinefisk
+    2. Jomfrufisk og fælles baggrundslyd
+    3. Paletkirurg
+    4. Fælles fokus: mørk baggrund og pause af andre fisk
+    5. Små fisk: oplysninger, tilfældig svømning og taleboble
+*/
+
+// ========== 1. STOR PINDSVINEFISK ==========
 const akvarium =
 document.querySelector(".akvarium");
 
@@ -22,7 +32,7 @@ document.querySelector("#fisk-bane");
 const pindsvineInfo =
 document.querySelector("#pindsvine-info");
 
-// Sørger for, at den senest valgte fisk ligger foran alle de andre.
+// Fjerner det høje lag fra den gamle fisk og giver det til den nye valgte fisk.
 function saetFiskForrest(fiskElement) {
     document.querySelectorAll(".fisk-forrest").forEach(function (element) {
         element.classList.remove("fisk-forrest");
@@ -46,7 +56,7 @@ fiskKnap.addEventListener("click",
         // gemmer info om at fisken er fanget
         erFanget = true
 
-        saetFiskForrest(fiskBane);
+        aktiverFiskFokus(fiskBane);
         fiskKnap.setAttribute("aria-expanded", "true");
         pindsvineInfo.setAttribute("aria-hidden", "false");
 
@@ -145,14 +155,19 @@ fiskKnap.addEventListener("click",
             pindsvineInfo.style.top = "";
 
             // starter de nye animationer fra midten igen
+            const svoemmeTid =
+            getComputedStyle(fiskBane).getPropertyValue("--pindsvine-svoemmetid").trim() || "16s";
+
             fiskBane.style.animation =
-            "svoem-fra-midten 12s linear infinite";
+            `svoem-fra-midten ${svoemmeTid} linear infinite`;
 
             fiskRetning.style.animation =
-            "vend-fisk-fra-midten 12s linear infinite";
+            `vend-fisk-fra-midten ${svoemmeTid} linear infinite`;
+
+            afslutFiskFokusHvisMuligt();
         });
 
-// Jomfrufisk og baggrundslyd
+// ========== 2. JOMFRUFISK OG BAGGRUNDSLYD ==========
 const jomfrufisk = document.querySelector("#jomfrufisk");
 const jomfrufiskKnap = document.querySelector("#jomfrufisk-knap");
 const jomfrufiskLyd = document.querySelector("#jomfrufisk-lyd");
@@ -168,7 +183,7 @@ document.addEventListener("click", function startBaggrundslyd() {
 jomfrufiskKnap.addEventListener("click", function (event) {
     event.stopPropagation();
 
-    saetFiskForrest(jomfrufisk);
+    aktiverFiskFokus(jomfrufisk);
     jomfrufisk.classList.add("er-stoppet");
     jomfrufiskKnap.setAttribute("aria-expanded", "true");
     jomfrufiskLyd.currentTime = 0;
@@ -183,18 +198,20 @@ akvarium.addEventListener("click", function () {
     jomfrufiskLyd.pause();
     jomfrufiskLyd.currentTime = 0;
     baggrundslyd.volume = 0.5;
+    afslutFiskFokusHvisMuligt();
 });
 
 jomfrufiskLyd.addEventListener("ended", function () {
     baggrundslyd.volume = 0.5;
 });
 
-// Paletkirurg
+// ========== 3. PALETKIRURG ==========
 const paletkirurgAkvarium = document.querySelector("#akvarium");
 const paletkirurgLyd = document.querySelector("#paletkirurg-lyd");
 const paletkirurgInfo = document.querySelector("#paletkirurg-info");
 
 function lavPaletkirurg() {
+    // Paletkirurgen findes ikke som et <img> i HTML, så den oprettes her.
     const paletkirurg = document.createElement("img");
 
     paletkirurg.src = "svg/fiskkirurg.svg";
@@ -213,7 +230,7 @@ function lavPaletkirurg() {
         paletkirurgInfo.setAttribute("aria-hidden", String(!erTaet));
 
         if (erTaet) {
-            saetFiskForrest(paletkirurg);
+            aktiverFiskFokus(paletkirurg);
             paletkirurgLyd.currentTime = 0;
             paletkirurgLyd.play().catch(function () {});
             baggrundslyd.volume = 0.15;
@@ -221,6 +238,7 @@ function lavPaletkirurg() {
             paletkirurg.classList.remove("fisk-forrest");
             paletkirurgLyd.pause();
             baggrundslyd.volume = 0.5;
+            afslutFiskFokusHvisMuligt();
         }
     }
 
@@ -246,14 +264,55 @@ paletkirurgLyd.addEventListener("ended", function () {
 
 lavPaletkirurg();
 
-// Fælles system til de fritsvømmende fisk
+// ========== 4. FÆLLES FOKUS OG PAUSE ==========
+// Disse variabler bruges også af systemet med de små fisk nedenfor.
 const samleFiskAkvarium = document.querySelector(".akvarium");
 const alleSamleFisk = document.querySelectorAll(".samlefisk");
 const samleFiskTaleboble = document.querySelector(".samlefisk-taleboble");
 
 let valgtSamleFisk = null;
+let genstartSamleFiskTimer = null;
 
-// Numrene matcher data-fisk-nr i HTML.
+function aktiverFiskFokus(aktivFisk) {
+    // Stop en planlagt genstart, hvis brugeren vælger en ny fisk med det samme.
+    clearTimeout(genstartSamleFiskTimer);
+
+    // Klassen viser overlayet og pauser CSS-animationerne på de store fisk.
+    akvarium.classList.add("fisk-fokus");
+    saetFiskForrest(aktivFisk);
+
+    // De små fisk bruger CSS-overgange i stedet for keyframes og fryses derfor med JavaScript.
+    alleSamleFisk.forEach(function (fisk) {
+        frysSamleFisk(fisk);
+    });
+}
+
+function afslutFiskFokusHvisMuligt() {
+    // Vent til alle klikfunktioner på akvariet har nået at lukke deres fisk.
+    setTimeout(function () {
+        const harAktivFisk =
+        erFanget ||
+        jomfrufisk.classList.contains("er-stoppet") ||
+        paletkirurgAkvarium.classList.contains("paletkirurg-taet") ||
+        valgtSamleFisk !== null;
+
+        if (harAktivFisk) {
+            return;
+        }
+
+        // Når ingen fisk længere er valgt, fjernes overlayet og de små fisk genstartes.
+        akvarium.classList.remove("fisk-fokus");
+        clearTimeout(genstartSamleFiskTimer);
+        genstartSamleFiskTimer = setTimeout(function () {
+            alleSamleFisk.forEach(function (fisk) {
+                fisk.nyTur();
+            });
+        }, 600);
+    }, 0);
+}
+
+// ========== 5. SMÅ FISK OG DERES OPLYSNINGER ==========
+// Placeringen i listen matcher data-fisk-nr i HTML.
 const samleFiskInfo = [
     {
         navn: "Pindsvinefisken",
@@ -359,6 +418,7 @@ const samleFiskInfo = [
 ];
 
 function svoemSamleFisk(fisk) {
+    // Hent den valgte fisks regler ud fra dens data-fisk-nr.
     const nummer = Number(fisk.dataset.fiskNr);
     const regler = samleFiskInfo[nummer] || {};
 
@@ -367,7 +427,8 @@ function svoemSamleFisk(fisk) {
         new Image().src = regler.pustOp;
     }
 
-    const hastighed = regler.hastighed ?? 60 + Math.random() * 80;
+    // De små fisk svømmer roligt med lidt forskellig fart.
+    const hastighed = regler.hastighed ?? 30 + Math.random() * 35;
     const [minDybde, maxDybde] = regler.dybde ?? [0, 1];
     fisk.retning = regler.kigger === "venstre" ? -1 : 1;
 
@@ -376,6 +437,10 @@ function svoemSamleFisk(fisk) {
     }
 
     fisk.nyTur = function () {
+        // Kun én timer må være aktiv for hver fisk.
+        clearTimeout(fisk.timer);
+
+        // Vælg et tilfældigt punkt, som stadig holder hele fisken inde i akvariet.
         const maxX = Math.max(0, samleFiskAkvarium.clientWidth - fisk.clientWidth);
         const maxY = Math.max(0, samleFiskAkvarium.clientHeight - fisk.clientHeight);
         const nyX = Math.random() * maxX;
@@ -384,6 +449,7 @@ function svoemSamleFisk(fisk) {
 
         fisk.style.transform = `scaleX(${retning * fisk.retning})`;
 
+        // En længere strækning tager længere tid, så hastigheden virker ensartet.
         const afstand = Math.hypot(nyX - fisk.offsetLeft, nyY - fisk.offsetTop);
         const tid = Math.max(afstand / hastighed, 1);
 
@@ -397,6 +463,7 @@ function svoemSamleFisk(fisk) {
 }
 
 function frysSamleFisk(fisk) {
+    // Gem den beregnede placering fra browseren, så fisken ikke hopper, når den stoppes.
     clearTimeout(fisk.timer);
     const stil = getComputedStyle(fisk);
 
@@ -406,10 +473,11 @@ function frysSamleFisk(fisk) {
 }
 
 function vaelgSamleFisk(fisk) {
+    // Stop gruppen, vis overlayet og fyld den fælles boble med den valgte fisks data.
     valgtSamleFisk = fisk;
     alleSamleFisk.forEach(frysSamleFisk);
     samleFiskAkvarium.classList.add("samlefisk-pause");
-    saetFiskForrest(fisk);
+    aktiverFiskFokus(fisk);
 
     const nummer = Number(fisk.dataset.fiskNr);
     const info = samleFiskInfo[nummer] || {};
@@ -418,6 +486,7 @@ function vaelgSamleFisk(fisk) {
         element.textContent = info[element.dataset.felt] ?? "";
     });
 
+    // Beregn en samlet, centreret placering til fisken og boblen.
     const mellemrum = Math.min(40, samleFiskAkvarium.clientWidth * 0.04);
     const fiskBredde = Math.min(350, samleFiskAkvarium.clientWidth * 0.38);
     const fiskHoejde = fiskBredde * (fisk.clientHeight / fisk.clientWidth);
@@ -452,6 +521,7 @@ function vaelgSamleFisk(fisk) {
 }
 
 function slipSamleFisk() {
+    // Gendan billede, størrelse og retning, før fisken svømmer videre.
     if (!valgtSamleFisk) {
         return;
     }
@@ -466,11 +536,7 @@ function slipSamleFisk() {
     samleFiskTaleboble.classList.remove("vis");
     samleFiskTaleboble.setAttribute("aria-hidden", "true");
 
-    setTimeout(function () {
-        alleSamleFisk.forEach(function (fisk) {
-            fisk.nyTur();
-        });
-    }, 600);
+    afslutFiskFokusHvisMuligt();
 }
 
 alleSamleFisk.forEach(function (fisk) {

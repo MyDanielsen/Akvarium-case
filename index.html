@@ -9,6 +9,15 @@
 </head>
 
 <body>
+    <!--
+        SIDENS OPBYGNING
+        1. Den store pindsvinefisk
+        2. Jomfrufisken
+        3. Paletkirurgen
+        4. De små, fritsvømmende fisk og deres fælles taleboble
+        5. Lydfiler og JavaScript
+    -->
+
     <!-- området hvor fiskene skal svømme -->
     <main class="akvarium" id="akvarium">
         <!-- hvor fiskene svømmer frem og tilbage -->
@@ -40,6 +49,8 @@
              </div>
         </div>
 
+        <!-- Pindsvinefiskens taleboble ligger uden for fiskens beholder,
+             så fisken og boblen kan centreres som én samlet gruppe. -->
         <div class="pindsvine-boble fisk-info-boble" id="pindsvine-info" aria-hidden="true">
             <h2>Pindsvinefisken</h2>
             <p class="art"><i>Art:</i> Diodon holocanthus</p>
@@ -78,7 +89,7 @@
             </button>
         </div>
 
-        <!-- Paletkirurgen bliver oprettet med JavaScript -->
+        <!-- Selve paletkirurgen bliver oprettet med JavaScript. Her ligger kun dens boble. -->
         <div class="paletkirurg-bobbel fisk-info-boble" id="paletkirurg-info" aria-hidden="true">
             <h2>Paletkirurgen</h2>
             <p class="art"><i>Art:</i> Paracanthurus hepatus</p>
@@ -91,7 +102,8 @@
             </ul>
         </div>
 
-        <!-- Fælles fiskesystem. Nummeret matcher oplysningerne i JavaScript. -->
+        <!-- FÆLLES FISKESYSTEM
+             data-fisk-nr forbinder hver SVG med den rigtige plads i samleFiskInfo i JavaScript. -->
         <img class="samlefisk" data-fisk-nr="0" src="svg/tyndfisk.svg" alt="Pindsvinefisk" role="button" tabindex="0">
         <img class="samlefisk" data-fisk-nr="1" src="svg/chromis.svg" alt="Den blå chromis" role="button" tabindex="0">
         <img class="samlefisk" data-fisk-nr="2" src="svg/kejser.svg" alt="Dværgkejser" role="button" tabindex="0">
@@ -100,6 +112,7 @@
         <img class="samlefisk" data-fisk-nr="7" src="svg/fiskkirurg.svg" alt="Paletkirurg" role="button" tabindex="0">
         <img class="samlefisk" data-fisk-nr="9" src="svg/ildhale.svg" alt="Ildhalekutling" role="button" tabindex="0">
 
+        <!-- De små fisk deler denne taleboble. JavaScript udskifter teksten ved hvert klik. -->
         <aside class="samlefisk-taleboble fisk-info-boble" aria-live="polite" aria-hidden="true">
             <header>
                 <h2 data-felt="navn"></h2>
@@ -115,7 +128,8 @@
             </ul>
         </aside>
 
-        <!-- lydklippet afspilles når ma trykker på fisken -->
+        <!-- LYDFILER -->
+        <!-- lydklippet afspilles når man trykker på fisken -->
          <!-- preload auto = beder browseren om at indlæse lydfilen på forhånd, så den kan starte hurtigt ved klikket -->
          <audio 
          id="fiskelyd"
@@ -128,7 +142,7 @@
          <audio id="baggrundslyd" src="baggrund.m4a" preload="auto" loop></audio>
     </main>
 
-    <!-- forbinder html med js -->
+    <!-- JavaScript placeres til sidst, så HTML-elementerne findes, før koden prøver at finde dem. -->
      <script src="JavaScript/js.js"></script>
 </body>
 </html>
