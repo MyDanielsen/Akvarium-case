@@ -317,7 +317,7 @@ const samleFiskInfo = [
     {
         navn: "Pindsvinefisken",
         art: "Diodon holocanthus",
-        levested: "Levested: Tropiske og subtropiske farvande nær koralrev i atlanterhavet og stillehavet",
+        levested: "Tropiske og subtropiske farvande nær koralrev i atlanterhavet og stillehavet",
         stoerrelse: "Op til ca. 91 cm lang",
         vaegt: "Op til ca. 2,8 kg",
         fartTekst: "Pindsvinefisken er en langsom og klodset svømmer",
