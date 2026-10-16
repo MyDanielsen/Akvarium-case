@@ -317,102 +317,102 @@ const samleFiskInfo = [
     {
         navn: "Pindsvinefisken",
         art: "Diodon holocanthus",
-        levested: "xxx",
-        stoerrelse: "xxx",
-        vaegt: "xxx",
-        fartTekst: "xxx",
-        funFact: "xxx",
+        levested: "Levested: Tropiske og subtropiske farvande nær koralrev i atlanterhavet og stillehavet",
+        stoerrelse: "Op til ca. 91 cm lang",
+        vaegt: "Op til ca. 2,8 kg",
+        fartTekst: "Pindsvinefisken er en langsom og klodset svømmer",
+        funFact: "Når den føler sig truet, sluger den vand og puster sig op, så piggene stritter ud.",
         pustOp: "svg/tykfisk.svg"
     },
     {
         navn: "Den blå chromis",
         art: "Chromis cyanea",
-        levested: "xxx",
-        stoerrelse: "xxx",
-        vaegt: "xxx",
-        fartTekst: "xxx",
-        funFact: "xxx"
+        levested: "Koralrev i Caribien og laguner i Det vestlige Atlanterhav",
+        stoerrelse: "Ca. 13–15 cm",
+        vaegt: "Cirka 30–50 g",
+        fartTekst: "Hurtig svæmmer, der søger skjul i koraller",
+        funFact: "Farven kan skifte alt efter hvilket lys den er i. Nogle gange ser jeg grøn ud."
     },
     {
         navn: "Dværgkejseren",
         art: "Centropyge",
-        levested: "xxx",
-        stoerrelse: "xxx",
-        vaegt: "xxx",
-        fartTekst: "xxx",
-        funFact: "xxx"
+        levested: "Koralrev i tropiske dele af Atlanterhavet og det Indiske Ocean",
+        stoerrelse: "Ca. 8–15 cm",
+        vaegt: "Cirka 30–100 g",
+        fartTekst: "vømmer roligt, men er god til at manøvrere mellem koraller",
+        funFact: "ogle dværgkejsere kan skifte køn, hvis gruppens dominerende han forsvinder"
     },
     {
         navn: "Klovnfisken",
         art: "Amphiprion ocellaris",
-        levested: "xxx",
-        stoerrelse: "xxx",
-        vaegt: "xxx",
-        fartTekst: "xxx",
-        funFact: "xxx"
+        levested: "Levested: Koralrev og laguner i Det Indiske Ocean og det vestlige Stillehav",
+        stoerrelse: "Oftest 7–17 cm",
+        vaegt: "Cirka 40–70 g",
+        fartTekst: "Langsom svømmer; den holder sig gerne tæt ved sin søanemone",
+        funFact: "Klovnfisk er født som hanner, og den største han kan skifte køn til hun, hvis den dominerende hun dør"
     },
     {
         navn: "Den gule kirurgfisk",
         art: "Zebrasoma flavescens",
-        levested: "xxx",
-        stoerrelse: "xxx",
-        vaegt: "xxx",
-        fartTekst: "xxx",
-        funFact: "xxx"
+        levested: "Koralrev i det centrale og vestlige Stillehav",
+        stoerrelse: "Ca. 15–20 cm",
+        vaegt: "Cirka 100–200 g",
+        fartTekst: "Aktiv og hurtig svømmer",
+        funFact: "Om natten bliver den gule farve mørkere og mere grålig."
     },
     {
         navn: "Jomfrufisken",
         art: "Pomacentridae",
-        levested: "xxx",
-        stoerrelse: "xxx",
-        vaegt: "xxx",
-        fartTekst: "xxx",
-        funFact: "xxx"
+        levested: "Koralrev i varme have, især Atlanterhavet og Indo-Stillehavet",
+        stoerrelse: "Oftest 5–15 cm",
+        vaegt: "Cirka 10–100 g",
+        fartTekst: "Hurtig og adræt; kan pile ind mellem koraller",
+        funFact: "Den forsvarer sit lille territorium mod selv meget større fisk"
     },
     {
         navn: "Rævehovedfisken",
         art: "Siganus vulpinus",
-        levested: "xxx",
-        stoerrelse: "xxx",
-        vaegt: "xxx",
-        fartTekst: "xxx",
-        funFact: "xxx"
+        levested: "Koralrev i det vestlige Stillehav",
+        stoerrelse: "Op til ca. 25 cm",
+        vaegt: "Cirka 300 g",
+        fartTekst: "Svømmer aktivt omkring revet",
+        funFact: "Dens finnespidser er giftige og kan give et smertefuldt stik"
     },
     {
         navn: "Paletkirurgen",
         art: "Paracanthurus hepatus",
-        levested: "xxx",
-        stoerrelse: "xxx",
-        vaegt: "xxx",
-        fartTekst: "xxx",
-        funFact: "xxx"
+        levested: "Koralrev i det vestlige Stillehav og dele af Det Indiske Ocean.",
+        stoerrelse: "Op til ca. 30 cm.",
+        vaegt: "Afhænger af alder og størrelse",
+        fartTekst: "Hurtig og adræt svømmer, især når den undviger rovdyr.",
+        funFact: "Den har skarpe, knivlignende strukturer ved haleroden, som kan bruges til forsvar"
     },
     {
         navn: "Sommerfuglefisken",
         art: "Chaetodontidae",
-        levested: "xxx",
-        stoerrelse: "xxx",
-        vaegt: "xxx",
-        fartTekst: "xxx",
-        funFact: "xxx"
+        levested: "Koralrev i tropiske have verden over",
+        stoerrelse: "Varierer efter art; ofte omkring 12–22 cm",
+        vaegt: "Varierer efter art",
+        fartTekst: "ret langsom og svømmer typisk roligt omkring koralrevet.",
+        funFact: "Mange sommerfuglfisk svømmer i par, og nogle spiser korallernes slim"
     },
     {
         navn: "Ildhalekutlingen",
         art: "Nemateleotris magnifica",
-        levested: "xxx",
-        stoerrelse: "xxx",
-        vaegt: "xxx",
-        fartTekst: "xxx",
-        funFact: "xxx"
+        levested: "Koralrev i Det Indiske Ocean og Stillehavet",
+        stoerrelse: "Ca. 5–8 cm",
+        vaegt: "Få gram",
+        fartTekst: "Svømmer roligt, men kan pile lynhurtigt i skjul",
+        funFact: "Ildhalekutlingen kan springe op af vandet, når den bliver forskrækket"
     },
     {
         navn: "Konge Febars",
         art: "Gramma loreto",
-        levested: "xxx",
-        stoerrelse: "xxx",
-        vaegt: "xxx",
-        fartTekst: "xxx",
-        funFact: "xxx",
+        levested: "Koralrev i Caribien og den vestlige del af Atlanterhavet",
+        stoerrelse: "Op til ca. 10 cm",
+        vaegt: "Cirka 10–20 g",
+        fartTekst: "Svømmer roligt, men kan hurtigt pile ind i skjul",
+        funFact: "Den kan svømme på hovedet eller med bugen tæt mod klippevægge.",
         paaHovedet: true
     }
 ];
