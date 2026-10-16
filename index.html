@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akvarie</title>
+    <!-- link til css -->
+    <link rel="stylesheet" href="css/css.css">
+</head>
+
+<body>
+    <!-- området hvor fiskene skal svømme -->
+    <main class="akvarium">
+        <!-- hvor fiskene svømmer frem og tilbage -->
+        <div class="fisk-bane" id="fisk-bane">
+            <!-- vender fisken så den kan skifte retning -->
+             <div class="fisk-retning">
+                <!-- her gør vi fiskene klikbare -->
+                 <button
+                 class="fisk-knap"
+                 id="fisk-knap"
+                 type="button"
+                 >
+
+                 <!-- her samler vi de to billeder af pindsvinefisken så de kan blive hold oven på hinanden -->
+                  <span class="pindsvine-billeder">
+                    <img class="fisketilstand fisktynd" 
+                    src="svg/tyndfisk.svg" 
+                    alt="tyndpindsvinefisk">
+
+                    <img 
+                    class="fisketilstand fisktyk"
+                    src="svg/tykfisk.svg" 
+                    alt="tykpindsvinefisk">
+
+                  </span>
+                </button>
+             </div>
+        </div>
+
+        <!-- lydklippet afspilles når ma trykker på fisken -->
+         <!-- preload auto = beder browseren om at indlæse lydfilen på forhånd, så den kan starte hurtigt ved klikket -->
+         <audio 
+         id="fiskelyd"
+         src="lyd-filer/randomlyd.mp3"
+         preload="auto"
+         ></audio>
+    </main>
+
+    <!-- forbinder html med js -->
+     <script src="JavaScript/js.js"></script>
+</body>
+</html>

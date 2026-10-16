@@ -1,0 +1,265 @@
+html,
+body {
+    margin: 0;
+    min-height: 100%;
+}
+
+body {
+    min-height: 100vh;
+    background-image: url(../svg/Baggrund.svg);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+}
+
+.akvarium {
+    /* fisken bliver placeret i forhold til akvariet */
+    position: relative;
+
+    /* skal fylde hele skærmen */
+    width: 100%;
+    height: 100vh;
+
+    /* fisken svømmer ud og bliver usynlige */
+    overflow: hidden;
+}
+
+.fisk-bane {
+    /* gør det muligt at flytte fisken frit */
+    position: absolute;
+    /* det starter 50% nede på skærmen fordi den skal være i midten */
+    top: 50%;
+    /* flytter fisken op så 50 er i midten af fisken */
+    translate: 0 -50%;
+    /* fisken starter ved venstre kant */
+    left: 0;
+    /* fisken får 20% af skærmens højde som er 20% */
+    width: 20vw;
+    height: auto;
+    /* samme format som frames */
+    aspect-ratio: 900/600;
+    /* fisken er foran baggrunden (andet lag) */
+    z-index: 2;
+    /* start svømme animation */
+    animation: svoem 12s linear infinite;
+}
+
+.fisk-retning {
+    /* så den fylder hele fisken beholder */
+    width: 100%;
+    height: 100%;
+
+    /* vender fisken på det rigtige tidspunkt */
+    animation: vend-fisk 12s linear infinite;
+}
+
+.fisk-knap {
+    /* fjerner knappen afstand */
+    border: 0;
+    /* fjerner knappen kant */
+    padding: 0;
+    /* fjerner knappen baggrund */
+    background: transparent;
+
+    width: 100%;
+    height: 100%;
+
+    cursor: pointer;
+
+    /* her gør vi så den store fisk ikke bliver beskåret af knappens størrelse */
+    overflow: visible;
+}
+
+/* placerer fiskene oven på hinanden */
+.pindsvine-billeder {
+    /* gør vi kan sætter billederne oven på hinanden */
+    position: relative;
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    /* skalering sker på midten */
+    transform-origin: center;
+}
+
+.fisketilstand {
+    /* begge billeder bliver placeret øverset venstre i samme boks */
+    position: absolute;
+    inset: 0;
+
+    /* begge svger fylder det samme */
+    width: 100%;
+    height: 100%;
+
+    /* hele svg framen bliver bevaret uden at ændre sig */
+    object-fit: contain;
+    /* fjerer afstaden under billederne */
+    display: block;
+}
+
+/* Hvilken fisk er synlig */
+/* tyndfisk er synlig */
+    .fisktynd {
+        opacity: 1;
+    }
+
+/* tykfisk er ikke synlig */
+    .fisktyk {
+        opacity: 0;
+    }
+
+/* klassen "er-fanget" bliver tilføjet i js når brugeren klikker på fisken */
+/* her forhindre vi flere klik når animaionen "er fanget" kører */
+.fisk-bane.er-fanget {
+    pointer-events: none;
+}
+
+/* Her stopper vi fiskens dejning og gør den vender rigtigt */
+.fisk-bane.er-fanget .fisk-retning {
+    animation: none;
+    transform: scaleX(1);
+}
+
+/* gør at begge frames til fiskene bliver større */
+.fisk-bane.er-fanget .pindsvine-billeder {
+    animation: kom-her 1.6s ease-in-out forwards;
+}
+
+ /* når fisken er "fanget" skal den tynde fisk forsvinde */
+    .fisk-bane.er-fanget .fisktynd {
+        animation: skjul-tynd-fisk 1.6s ease-in-out forwards;
+    }
+
+/* den tykke fisk kommer frem efter den tynde */
+.fisk-bane.er-fanget .fisktyk {
+    animation: vis-tyk-fisk 1.6s ease-in-out forwards;
+}
+
+/* den tyndefisk skal være synlig i starten og så usynlig */
+@keyframes skjul-tynd-fisk {
+    0%,
+    65% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+/* den tykkefisk skal være usynlig i starten og så synlig */
+@keyframes vis-tyk-fisk {
+    0%,
+    65% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Får fisken til at svømme */
+@keyframes svoem {
+    /* starter ved venstre side -110 gør fiskens egen krop er helt ude for skærmen */
+    0% {
+        transform: translateX(-110%);
+    }
+
+    /* svømmer helt ud for højre side, 100vw er hele skærmen så de ekstra 110% gør fisken er uden for skærmen */
+    48% {
+        transform: translateX(calc(100vw + 110%));
+    }
+
+    /* fisken bliver kort uden for skærmen mens den vender */
+    50% {
+        transform: translateX(calc(100vw + 110%));
+    }
+
+    /* fisken er tilbage uden for venstre side */
+    98% {
+        transform: translateX(-110%);
+    }
+
+    /* den bliver kort uden for venstre side inden animationen starter forfra */
+    100% {
+        transform: translateX(-110%);
+    }
+}
+
+@keyframes vend-fisk {
+    /* fisken vender først mod højre på turen ud i højre side */
+    0%,
+    48% {
+        transform: scaleX(1);
+    }
+
+    /* ved 50% er fisken uden for høre side. Her spejles den og vender mod venstre */
+    50%,
+    98% {
+        transform: scaleX(-1);
+    }
+
+    /* Ved 100% er fisken uden for venstre side, så den skal vendes mod højre igen */
+    100% {
+        transform: scaleX(1);
+    }
+}
+
+/* gør dem større så det ligner de kommer tættere på skærmen */
+@keyframes kom-her {
+    /* her starter fiskene i normal størrelse */
+    0% {
+        transform: scale(1);
+    }
+    /* her bliver de tre gange større */
+    100% {
+        transform: scale(3);
+    }
+}
+
+/* få fisken til at gå tilbage til at svømme frem og tilbage */
+@keyframes svoem-fra-midten {
+    0% {
+        transform: translateX(calc(50vw - 50%));
+    }
+
+    32% {
+        transform: translateX(calc(100vw + 110%));
+    }
+
+    34% {
+        transform: translateX(calc(100vw + 110%));
+    }
+
+    66% {
+        transform: translateX(-110%);
+    }
+
+    68% {
+        transform: translateX(-110%);
+    }
+
+    100% {
+        transform: translateX(calc(50vw - 50%));
+    }
+}
+
+@keyframes vend-fisk-fra-midten {
+    0%,
+    32% {
+        transform: scaleX(1);
+    }
+
+    34%,
+    66% {
+        transform: scaleX(-1);
+    }
+
+    68%,
+    100% {
+        transform: scaleX(1);
+    }
+}
