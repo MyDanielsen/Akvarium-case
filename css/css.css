@@ -25,6 +25,11 @@ body {
     overflow: hidden;
 }
 
+/* Den fisk, brugeren har valgt, skal altid ligge foran de andre fisk. */
+.akvarium .fisk-forrest {
+    z-index: 100;
+}
+
 .fisk-bane {
     /* gør det muligt at flytte fisken frit */
     position: absolute;
@@ -43,6 +48,7 @@ body {
     z-index: 2;
     /* start svømme animation */
     animation: svoem 12s linear infinite;
+    --pindsvine-skala: 3;
 }
 
 .fisk-retning {
@@ -216,7 +222,7 @@ body {
     }
     /* her bliver de tre gange større */
     100% {
-        transform: scale(3);
+        transform: scale(var(--pindsvine-skala));
     }
 }
 
@@ -262,4 +268,587 @@ body {
     100% {
         transform: scaleX(1);
     }
+}
+
+/* Jomfrufisk */
+.jomfrufisk {
+    position: absolute;
+    z-index: 3;
+    top: 68%;
+    left: 0;
+    width: min(30vw, 330px);
+    animation: jomfrufisk-svoem 12s linear infinite;
+}
+
+.jomfrufisk-knap {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+}
+
+.jomfrufisk-billede {
+    display: block;
+    width: 100%;
+    height: min(20vh, 210px);
+    object-fit: contain;
+    transform: scaleX(-1);
+    transition: transform 0.35s ease;
+}
+
+.jomfrufisk.er-stoppet {
+    animation-play-state: paused;
+}
+
+.jomfrufisk.er-stoppet .jomfrufisk-billede {
+    transform: scaleX(-1) scale(1.8);
+}
+
+@keyframes jomfrufisk-svoem {
+    from {
+        transform: translateX(100vw);
+    }
+
+    to {
+        transform: translateX(-100%);
+    }
+}
+
+.jomfrufisk-boble {
+    position: absolute;
+    left: 50%;
+    bottom: 100%;
+    width: min(24rem, 82vw);
+    min-height: 19rem;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2rem 3.2rem;
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    color: #062c3d;
+    font-family: Arial, Helvetica, sans-serif;
+    background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.78) 0%, rgba(255, 255, 255, 0.5) 70%, rgba(255, 255, 255, 0.35) 100%);
+    box-shadow: inset 0 -8px 18px rgba(120, 200, 240, 0.35), inset 0 8px 14px rgba(255, 255, 255, 0.5), 0 4px 14px rgba(0, 60, 100, 0.18);
+    backdrop-filter: blur(2px);
+    transform: translate(-50%, 0) scale(0.3);
+    transform-origin: bottom center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease, transform 0.3s ease;
+}
+
+.jomfrufisk-boble h2 {
+    margin: 0 0 0.35rem;
+    font-size: 22px;
+}
+
+.jomfrufisk-boble ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.jomfrufisk-boble li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 5px 0;
+    font-size: 13px;
+}
+
+.info-ikon {
+    display: grid;
+    width: 18px;
+    height: 18px;
+    flex: 0 0 18px;
+    place-items: center;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.65);
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.jomfrufisk-boble::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 6%;
+    left: 14%;
+    width: 18%;
+    height: 10%;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.6);
+    transform: rotate(-35deg);
+}
+
+.jomfrufisk.er-stoppet .jomfrufisk-boble {
+    opacity: 1;
+    transform: translate(-50%, -7vh) scale(1);
+}
+
+@media (max-width: 650px) {
+    .jomfrufisk {
+        width: 42vw;
+    }
+
+    .jomfrufisk-boble {
+        min-height: 17rem;
+        padding: 1.6rem 2.5rem;
+    }
+
+    .jomfrufisk-boble li {
+        font-size: 11px;
+    }
+}
+
+/* Fælles glasboble til alle fisk */
+.fisk-info-boble {
+    box-sizing: border-box;
+    min-height: 19rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2rem 3.2rem;
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    color: #062c3d;
+    font-family: Arial, Helvetica, sans-serif;
+    background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.78) 0%, rgba(255, 255, 255, 0.5) 70%, rgba(255, 255, 255, 0.35) 100%);
+    box-shadow: inset 0 -8px 18px rgba(120, 200, 240, 0.35), inset 0 8px 14px rgba(255, 255, 255, 0.5), 0 4px 14px rgba(0, 60, 100, 0.18);
+    backdrop-filter: blur(2px);
+}
+
+.fisk-info-boble h2 {
+    margin: 0 0 0.2rem;
+    font-size: 22px;
+    line-height: 1.1;
+}
+
+.fisk-info-boble .art {
+    margin: 0 0 0.4rem;
+    font-size: 12px;
+}
+
+.fisk-info-boble header {
+    margin: 0 0 0.25rem;
+    padding: 0;
+    border: 0;
+}
+
+.fisk-info-boble ul {
+    display: block;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.fisk-info-boble li {
+    display: flex;
+    grid-template-columns: none;
+    align-items: center;
+    gap: 8px;
+    margin: 5px 0;
+    font-size: 13px;
+}
+
+.fisk-info-boble li p {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.25;
+}
+
+.fisk-info-boble .ikon,
+.fisk-info-boble .info-ikon {
+    display: grid;
+    width: 18px;
+    height: 18px;
+    flex: 0 0 18px;
+    place-items: center;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.65);
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.fisk-info-boble::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 6%;
+    left: 14%;
+    width: 18%;
+    height: 10%;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.6);
+    transform: rotate(-35deg);
+}
+
+.pindsvine-boble {
+    position: absolute;
+    z-index: 101;
+    top: 50%;
+    left: 0;
+    bottom: auto;
+    width: min(24rem, 82vw);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-50%) scale(0.3);
+    transform-origin: left center;
+    transition: opacity 0.25s ease 0.8s, transform 0.3s ease 0.8s;
+}
+
+.fisk-bane.er-fanget + .pindsvine-boble {
+    opacity: 1;
+    transform: translateY(-50%) scale(1);
+}
+
+.samlefisk-taleboble.fisk-info-boble {
+    border-radius: 50%;
+    background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.78) 0%, rgba(255, 255, 255, 0.5) 70%, rgba(255, 255, 255, 0.35) 100%);
+}
+
+.paletkirurg-bobbel.fisk-info-boble {
+    width: min(24rem, 82vw);
+    height: auto;
+    min-height: 19rem;
+    place-items: initial;
+}
+
+@media (max-width: 650px) {
+    .fisk-bane {
+        --pindsvine-skala: 2.2;
+    }
+
+    .pindsvine-boble {
+        width: 48vw;
+    }
+
+    .fisk-info-boble {
+        min-height: 17rem;
+        padding: 1.6rem 2.5rem;
+    }
+
+    .fisk-info-boble li,
+    .fisk-info-boble li p {
+        font-size: 11px;
+    }
+}
+
+/* Fælles system til de fritsvømmende fisk */
+.samlefisk {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: var(--bredde, 120px);
+    cursor: pointer;
+    transition:
+        left var(--tid, 4s) ease-in-out,
+        top var(--tid, 4s) ease-in-out,
+        width 0.6s ease,
+        transform 0.4s;
+}
+
+.samlefisk.valgt {
+    width: var(--valgt-bredde, 350px);
+    z-index: 100;
+}
+
+.akvarium::after {
+    content: "";
+    position: absolute;
+    z-index: 90;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.6s;
+}
+
+.akvarium.samlefisk-pause::after {
+    opacity: 1;
+}
+
+.samlefisk-taleboble {
+    position: absolute;
+    z-index: 101;
+    top: 0;
+    left: 0;
+    width: min(460px, 90vw);
+    box-sizing: border-box;
+    padding: 1.2rem 1.5rem;
+    border-radius: 24px;
+    background: #fff;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    color: #123;
+    font-family: Arial, Helvetica, sans-serif;
+    opacity: 0;
+    transform: scale(0.9);
+    pointer-events: none;
+    transition: opacity 0.3s, transform 0.3s;
+}
+
+.samlefisk-taleboble::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: -18px;
+    border: 12px solid transparent;
+    border-right: 18px solid #fff;
+    border-left: 0;
+    transform: translateY(-50%);
+}
+
+.samlefisk-taleboble.vis {
+    opacity: 1;
+    transform: scale(1);
+    transition-delay: 0.8s;
+}
+
+.samlefisk-taleboble header {
+    margin-bottom: 1.4rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid #123;
+}
+
+.samlefisk-taleboble h2 {
+    margin: 0;
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    line-height: 1.1;
+}
+
+.samlefisk-taleboble .art {
+    margin: 0;
+    font-size: 0.95rem;
+}
+
+.samlefisk-taleboble ul {
+    display: grid;
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.samlefisk-taleboble li {
+    display: grid;
+    grid-template-columns: 2rem 1fr;
+    gap: 0.9rem;
+    align-items: center;
+}
+
+.samlefisk-taleboble .ikon {
+    font-size: 1.6rem;
+    text-align: center;
+}
+
+.samlefisk-taleboble li p {
+    margin: 0;
+    font-size: 1.1rem;
+    line-height: 1.4;
+}
+
+.samlefisk.puster {
+    animation: samlefisk-pust 0.6s ease-out;
+}
+
+@keyframes samlefisk-pust {
+    0% { scale: 1; }
+    30% { scale: 0.85; }
+    65% { scale: 1.2; }
+    100% { scale: 1; }
+}
+
+@media (max-width: 700px) {
+    .samlefisk-taleboble {
+        padding: 1rem;
+    }
+
+    .samlefisk-taleboble li {
+        gap: 0.45rem;
+    }
+
+    .samlefisk-taleboble li p {
+        font-size: 0.85rem;
+    }
+}
+
+/* Paletkirurg */
+.paletkirurg-fisk {
+    position: absolute;
+    z-index: 4;
+    top: 20vh;
+    left: 0;
+    height: 20vh;
+    cursor: pointer;
+    animation-name: paletkirurg-svoem;
+    animation-duration: 12s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    transition: height 1s, top 1s, left 1s;
+}
+
+@keyframes paletkirurg-svoem {
+    0% {
+        left: 0;
+        translate: 0 0;
+        scale: 1 1;
+    }
+
+    49.99% {
+        left: 100%;
+        translate: -100% 0;
+        scale: 1 1;
+    }
+
+    50% {
+        left: 100%;
+        translate: -100% 0;
+        scale: -1 1;
+    }
+
+    100% {
+        left: 0;
+        translate: 0 0;
+        scale: -1 1;
+    }
+}
+
+.paletkirurg-bobbel {
+    position: absolute;
+    z-index: 3;
+    top: 5vh;
+    right: 20vw;
+    display: grid;
+    width: min(70vh, 70vw);
+    height: min(70vh, 70vw);
+    box-sizing: border-box;
+    place-items: center;
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    color: #062c3d;
+    font-family: Arial, Helvetica, sans-serif;
+    background: radial-gradient(circle at 40% 35%, rgba(255, 255, 255, 0.82), rgba(210, 240, 255, 0.48) 70%, rgba(170, 220, 250, 0.35));
+    box-shadow: inset 0 -8px 18px rgba(120, 200, 240, 0.35), inset 0 8px 14px rgba(255, 255, 255, 0.55), 0 4px 14px rgba(0, 60, 100, 0.18);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s 1s;
+}
+
+.paletkirurg-bobbel h2 {
+    margin: 0;
+    font-size: clamp(1.2rem, 3vw, 2rem);
+}
+
+.akvarium.paletkirurg-taet .paletkirurg-fisk {
+    top: 5vh;
+    left: -10vw;
+    height: 85vh;
+    animation: none;
+}
+
+.akvarium.paletkirurg-taet .paletkirurg-bobbel {
+    opacity: 1;
+    z-index: 99;
+}
+
+@media (max-width: 650px) {
+    .paletkirurg-bobbel {
+        top: 10vh;
+        right: -5vw;
+    }
+
+    .akvarium.paletkirurg-taet .paletkirurg-fisk {
+        left: -30vw;
+        height: 70vh;
+    }
+}
+
+/* De senere fiskeregler må ikke ændre glasboblens fælles udseende. */
+.samlefisk-taleboble.fisk-info-boble,
+.paletkirurg-bobbel.fisk-info-boble {
+    min-height: 19rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2rem 3.2rem;
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    color: #062c3d;
+    background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.78) 0%, rgba(255, 255, 255, 0.5) 70%, rgba(255, 255, 255, 0.35) 100%);
+    box-shadow: inset 0 -8px 18px rgba(120, 200, 240, 0.35), inset 0 8px 14px rgba(255, 255, 255, 0.5), 0 4px 14px rgba(0, 60, 100, 0.18);
+    backdrop-filter: blur(2px);
+}
+
+.samlefisk-taleboble.fisk-info-boble header {
+    margin: 0 0 0.25rem;
+    padding: 0;
+    border: 0;
+}
+
+.samlefisk-taleboble.fisk-info-boble h2,
+.paletkirurg-bobbel.fisk-info-boble h2 {
+    margin: 0 0 0.2rem;
+    font-size: 22px;
+    line-height: 1.1;
+}
+
+.samlefisk-taleboble.fisk-info-boble ul,
+.paletkirurg-bobbel.fisk-info-boble ul {
+    display: block;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.samlefisk-taleboble.fisk-info-boble li,
+.paletkirurg-bobbel.fisk-info-boble li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 5px 0;
+    font-size: 13px;
+}
+
+.samlefisk-taleboble.fisk-info-boble li p {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.25;
+}
+
+.samlefisk-taleboble.fisk-info-boble .ikon {
+    display: grid;
+    width: 18px;
+    height: 18px;
+    flex: 0 0 18px;
+    place-items: center;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.65);
+    font-size: 12px;
+}
+
+.samlefisk-taleboble.fisk-info-boble::before,
+.paletkirurg-bobbel.fisk-info-boble::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 6%;
+    left: 14%;
+    width: 18%;
+    height: 10%;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.6);
+    transform: rotate(-35deg);
+}
+
+.paletkirurg-bobbel.fisk-info-boble {
+    width: min(24rem, 82vw);
+    height: auto;
+    place-items: initial;
 }

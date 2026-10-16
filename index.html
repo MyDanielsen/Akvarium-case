@@ -10,7 +10,7 @@
 
 <body>
     <!-- området hvor fiskene skal svømme -->
-    <main class="akvarium">
+    <main class="akvarium" id="akvarium">
         <!-- hvor fiskene svømmer frem og tilbage -->
         <div class="fisk-bane" id="fisk-bane">
             <!-- vender fisken så den kan skifte retning -->
@@ -20,6 +20,8 @@
                  class="fisk-knap"
                  id="fisk-knap"
                  type="button"
+                 aria-controls="pindsvine-info"
+                 aria-expanded="false"
                  >
 
                  <!-- her samler vi de to billeder af pindsvinefisken så de kan blive hold oven på hinanden -->
@@ -38,6 +40,81 @@
              </div>
         </div>
 
+        <div class="pindsvine-boble fisk-info-boble" id="pindsvine-info" aria-hidden="true">
+            <h2>Pindsvinefisken</h2>
+            <p class="art"><i>Art:</i> Diodon holocanthus</p>
+            <ul>
+                <li><span class="info-ikon" aria-hidden="true">⌂</span><span><strong>Levested:</strong> xxx</span></li>
+                <li><span class="info-ikon" aria-hidden="true">↔</span><span><strong>Størrelse:</strong> xxx</span></li>
+                <li><span class="info-ikon" aria-hidden="true">⚖</span><span><strong>Vægt:</strong> xxx</span></li>
+                <li><span class="info-ikon" aria-hidden="true">➜</span><span><strong>Hastighed:</strong> xxx</span></li>
+                <li><span class="info-ikon" aria-hidden="true">i</span><span><strong>Fun fact:</strong> xxx</span></li>
+            </ul>
+        </div>
+
+        <!-- Jomfrufisken svømmer på sin egen bane og kan stoppes med et klik -->
+        <div class="jomfrufisk" id="jomfrufisk">
+            <div class="jomfrufisk-boble fisk-info-boble" id="jomfrufisk-info">
+                <h2>Jomfrufisken</h2>
+                <ul>
+                    <li><span class="info-ikon" aria-hidden="true">◐</span><span><strong>Farve:</strong> Sort og hvid stribet</span></li>
+                    <li><span class="info-ikon" aria-hidden="true">⌂</span><span><strong>Levested:</strong> Lavvandede koralrev i Det Indiske Ocean og Stillehavet</span></li>
+                    <li><span class="info-ikon" aria-hidden="true">↔</span><span><strong>Størrelse:</strong> Op til 8–10 cm</span></li>
+                    <li><span class="info-ikon" aria-hidden="true">⚖</span><span><strong>Vægt:</strong> 10–20 gram</span></li>
+                    <li><span class="info-ikon" aria-hidden="true">➜</span><span><strong>Hastighed:</strong> 2–3 kilometer i timen</span></li>
+                    <li><span class="info-ikon" aria-hidden="true">i</span><span><strong>Fun fact:</strong> Jeg er i familie med klovnefisken</span></li>
+                </ul>
+            </div>
+
+            <button
+                class="jomfrufisk-knap"
+                id="jomfrufisk-knap"
+                type="button"
+                aria-label="Vis information om jomfrufisken"
+                aria-controls="jomfrufisk-info"
+                aria-expanded="false"
+            >
+                <img class="jomfrufisk-billede" src="svg/Jomfrufisk.svg" alt="Jomfrufisk">
+            </button>
+        </div>
+
+        <!-- Paletkirurgen bliver oprettet med JavaScript -->
+        <div class="paletkirurg-bobbel fisk-info-boble" id="paletkirurg-info" aria-hidden="true">
+            <h2>Paletkirurgen</h2>
+            <p class="art"><i>Art:</i> Paracanthurus hepatus</p>
+            <ul>
+                <li><span class="info-ikon" aria-hidden="true">⌂</span><span><strong>Levested:</strong> xxx</span></li>
+                <li><span class="info-ikon" aria-hidden="true">↔</span><span><strong>Størrelse:</strong> xxx</span></li>
+                <li><span class="info-ikon" aria-hidden="true">⚖</span><span><strong>Vægt:</strong> xxx</span></li>
+                <li><span class="info-ikon" aria-hidden="true">➜</span><span><strong>Hastighed:</strong> xxx</span></li>
+                <li><span class="info-ikon" aria-hidden="true">i</span><span><strong>Fun fact:</strong> xxx</span></li>
+            </ul>
+        </div>
+
+        <!-- Fælles fiskesystem. Nummeret matcher oplysningerne i JavaScript. -->
+        <img class="samlefisk" data-fisk-nr="0" src="svg/tyndfisk.svg" alt="Pindsvinefisk" role="button" tabindex="0">
+        <img class="samlefisk" data-fisk-nr="1" src="svg/chromis.svg" alt="Den blå chromis" role="button" tabindex="0">
+        <img class="samlefisk" data-fisk-nr="2" src="svg/kejser.svg" alt="Dværgkejser" role="button" tabindex="0">
+        <img class="samlefisk" data-fisk-nr="3" src="svg/klovnfisk.svg" alt="Klovnfisk" role="button" tabindex="0">
+        <img class="samlefisk" data-fisk-nr="5" src="svg/Jomfrufisk.svg" alt="Jomfrufisk" role="button" tabindex="0">
+        <img class="samlefisk" data-fisk-nr="7" src="svg/fiskkirurg.svg" alt="Paletkirurg" role="button" tabindex="0">
+        <img class="samlefisk" data-fisk-nr="9" src="svg/ildhale.svg" alt="Ildhalekutling" role="button" tabindex="0">
+
+        <aside class="samlefisk-taleboble fisk-info-boble" aria-live="polite" aria-hidden="true">
+            <header>
+                <h2 data-felt="navn"></h2>
+                <p class="art"><i>Art:</i> <span data-felt="art"></span></p>
+            </header>
+
+            <ul>
+                <li><span class="ikon" aria-hidden="true">🌊</span><p><strong>Levested:</strong> <span data-felt="levested"></span></p></li>
+                <li><span class="ikon" aria-hidden="true">📏</span><p><strong>Størrelse:</strong> <span data-felt="stoerrelse"></span></p></li>
+                <li><span class="ikon" aria-hidden="true">⚖️</span><p><strong>Vægt:</strong> <span data-felt="vaegt"></span></p></li>
+                <li><span class="ikon" aria-hidden="true">⏱️</span><p><strong>Hastighed:</strong> <span data-felt="fartTekst"></span></p></li>
+                <li><span class="ikon" aria-hidden="true">💡</span><p><strong>Fun fact:</strong> <span data-felt="funFact"></span></p></li>
+            </ul>
+        </aside>
+
         <!-- lydklippet afspilles når ma trykker på fisken -->
          <!-- preload auto = beder browseren om at indlæse lydfilen på forhånd, så den kan starte hurtigt ved klikket -->
          <audio 
@@ -45,6 +122,10 @@
          src="lyd-filer/randomlyd.mp3"
          preload="auto"
          ></audio>
+
+         <audio id="jomfrufisk-lyd" src="Jomfrufisken.m4a" preload="auto"></audio>
+         <audio id="paletkirurg-lyd" src="lyd-filer/Paletkirurg.m4a" preload="auto"></audio>
+         <audio id="baggrundslyd" src="baggrund.m4a" preload="auto" loop></audio>
     </main>
 
     <!-- forbinder html med js -->
