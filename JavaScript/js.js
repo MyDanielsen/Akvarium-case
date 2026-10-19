@@ -312,7 +312,7 @@ function afslutFiskFokusHvisMuligt() {
 }
 
 // ========== 5. SMÅ FISK OG DERES OPLYSNINGER ==========
-// Placeringen i listen matcher data-fisk-nr i HTML.
+
 const samleFiskInfo = [
     {
         navn: "Pindsvinefisken",
@@ -340,7 +340,7 @@ const samleFiskInfo = [
         stoerrelse: "Ca. 8–15 cm",
         vaegt: "Cirka 30–100 g",
         fartTekst: "vømmer roligt, men er god til at manøvrere mellem koraller",
-        funFact: "ogle dværgkejsere kan skifte køn, hvis gruppens dominerende han forsvinder"
+        funFact: "nogle dværgkejsere kan skifte køn, hvis gruppens dominerende han forsvinder"
     },
     {
         navn: "Klovnfisken",
@@ -358,7 +358,7 @@ const samleFiskInfo = [
         stoerrelse: "Ca. 15–20 cm",
         vaegt: "Cirka 100–200 g",
         fartTekst: "Aktiv og hurtig svømmer",
-        funFact: "Om natten bliver den gule farve mørkere og mere grålig."
+        funFact: "Munden er formet som et næb, og perfekt til at gumle alger af koraller. "
     },
     {
         navn: "Jomfrufisken",
